@@ -7,10 +7,13 @@
 
 import Foundation
 
+// MARK: - JSON Parser Protocol
+
 protocol JSONParserProtocol {
     func decode<T: Decodable>(_ data: Data) throws -> T
 }
 
+// MARK: - JSON Parser 
 class JSONParser: JSONParserProtocol {
     
     func decode<T: Decodable>(_ data: Data) throws -> T {

@@ -7,9 +7,13 @@
 
 import Foundation
 
+// MARK: - API Protocol
+
 protocol APIProtocol {
     func makeRequest(_ endpoint: Endpoint) async throws -> Data
 }
+
+// MARK: - API
 
 final class API: APIProtocol {
         

@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Request Error Type Enumeration
+
 enum ErrorType : Error {
     case DecodingError
     case invalideURL

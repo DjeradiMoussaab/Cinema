@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Trending Endpoint Enumeration
+
 enum TrendingEndpoint: Endpoint {
     case getDailyTrending
     case getWeeklyTrending

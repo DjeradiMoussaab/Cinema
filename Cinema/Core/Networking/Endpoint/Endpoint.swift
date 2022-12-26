@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Endpoint Protocol
+
 protocol Endpoint {
     var scheme: String { get }
     var host: String { get }
@@ -40,17 +42,16 @@ extension Endpoint {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod.rawValue
-        //urlRequest.allHTTPHeaderFields = headers
-        //urlRequest.addValue(APIConstants.accessToken, forHTTPHeaderField: "api-key")
+        urlRequest.allHTTPHeaderFields = headers
         if !body.isEmpty {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body)
         }
-        print("your url is : \(urlRequest.url)")
-        print("h-------h")
         return urlRequest
     }
 }
 
+// MARK: - URLComponents Extension
+    /// adding a methode that helps setting up the query items to the URLComponent item.
 extension URLComponents {
     
     mutating func setQueryItems(with parameters: [String: String]) {

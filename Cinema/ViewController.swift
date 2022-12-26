@@ -15,16 +15,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.apiService = APIService(API(), JSONParser())
-        do {
-            self.apiService!.perform(TrendingEndpoint.getDailyTrending)
-                .map({ (trendings: TrendingResult) in
-                    print(trendings)
-                })
-                .subscribe()
-                .disposed(by: disposeBag)
-        } catch {
-            
-        }
+        self.apiService!.perform(TrendingEndpoint.getDailyTrending)
+            .map({ (trendings: TrendingResult) in
+                print(trendings)
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
         
     }
     

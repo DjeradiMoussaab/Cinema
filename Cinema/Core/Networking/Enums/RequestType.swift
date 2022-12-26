@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Request Type Enumeration
+
 enum RequestType: String {
     case GET
     case POST
