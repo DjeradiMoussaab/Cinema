@@ -14,6 +14,7 @@ protocol Endpoint {
     var httpMethod: RequestType { get }
     var headers: [String: String] { get }
     var body: [String: String] { get }
+    var parameters: [String: String] { get }
     
     func generateRequestURL() throws -> URLRequest
 }
@@ -28,21 +29,31 @@ extension Endpoint {
     }
     
     func generateRequestURL() throws -> URLRequest {
-
+        
         var urlComponents = URLComponents()
         urlComponents.scheme = scheme
         urlComponents.host = host
         urlComponents.path = path
-
+        urlComponents.setQueryItems(with: parameters)
+        
         guard let url = urlComponents.url else { throw ErrorType.invalideURL }
-
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod.rawValue
-        urlRequest.allHTTPHeaderFields = headers
-        urlRequest.addValue(APIConstants.accessToken, forHTTPHeaderField: "API-Key")
+        //urlRequest.allHTTPHeaderFields = headers
+        //urlRequest.addValue(APIConstants.accessToken, forHTTPHeaderField: "api-key")
         if !body.isEmpty {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body)
         }
+        print("your url is : \(urlRequest.url)")
+        print("h-------h")
         return urlRequest
+    }
+}
+
+extension URLComponents {
+    
+    mutating func setQueryItems(with parameters: [String: String]) {
+        self.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
     }
 }

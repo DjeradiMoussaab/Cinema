@@ -6,14 +6,28 @@
 //
 
 import UIKit
+import RxSwift
 
 class ViewController: UIViewController {
-
+    var apiService: APIService?
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.apiService = APIService(API(), JSONParser())
+        do {
+            self.apiService!.perform(TrendingEndpoint.getDailyTrending)
+                .map({ (trendings: TrendingResult) in
+                    print(trendings)
+                })
+                .subscribe()
+                .disposed(by: disposeBag)
+        } catch {
+            
+        }
+        
     }
-
-
+    
+    
 }
 

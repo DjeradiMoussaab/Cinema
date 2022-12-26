@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import RxSwift
 
-protocol APIService {
-    func perform<T:Decodable>(_ endpoint: Endpoint) async throws -> T
+protocol APIServiceProtocol {
+    func perform<T:Decodable>(_ endpoint: Endpoint) -> Single<T>
 }
 
-struct ProductService: APIService {
+struct APIService: APIServiceProtocol {
     
     private let api: APIProtocol
     private let jsonParser: JSONParserProtocol
@@ -21,11 +22,44 @@ struct ProductService: APIService {
         self.jsonParser = jsonParser
     }
     /// func that serves the api call, returning a decoded Data with generic type T
-    func perform<T:Decodable>(_ endpoint: Endpoint) async throws -> T {
-        let response = try await api.makeRequest(endpoint)
-        let decodedResponse: T = try self.jsonParser.decode(response)
-        return decodedResponse
+    func perform<T:Decodable>(_ endpoint: Endpoint) -> Single<T> {
+        
+        return Single.create { (single) -> Disposable in
+            
+            let task = Task {
+                do {
+                    let response = try await api.makeRequest(endpoint)
+                    let decodedResponse: T = try self.jsonParser.decode(response)
+                    print(decodedResponse)
+                    single(.success(decodedResponse))
+                } catch {
+                    //single(.error(ErrorType.unknown))
+                }
+            }
+            return Disposables.create(with: {
+                task.cancel()
+            })
+        }
     }
+    
+    /*func perform(_ endpoint: Endpoint) -> Single<TrendingResult> {
+        
+        return Single.create { (single) -> Disposable in
+            
+            let task = Task {
+                do {
+                    let response = try await api.makeRequest(endpoint)
+                    let trendingResults: TrendingResult = try self.jsonParser.decode(response)
+                    single(.success(trendingResults))
+                } catch {
+                    //single(.error(ErrorType.unknown))
+                }
+            }
+            return Disposables.create(with: {
+                task.cancel()
+            })
+        }
+    }*/
 
 }
 

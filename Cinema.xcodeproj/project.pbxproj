@@ -24,6 +24,8 @@
 		BD09AC682959A6D7008CD452 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC672959A6D7008CD452 /* JSONParser.swift */; };
 		BD09AC6A2959A75D008CD452 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC692959A75D008CD452 /* API.swift */; };
 		BD09AC6C2959A7B6008CD452 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC6B2959A7B6008CD452 /* APIService.swift */; };
+		BD09AC702959D144008CD452 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC6F2959D144008CD452 /* MediaItem.swift */; };
+		BD09AC732959D2FE008CD452 /* TrendingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC722959D2FE008CD452 /* TrendingEndpoint.swift */; };
 		F95A5C18549C4713EF318FAF /* Pods_Cinema.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE1E28ADDCEE4A4817494B3 /* Pods_Cinema.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		BD09AC672959A6D7008CD452 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		BD09AC692959A75D008CD452 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		BD09AC6B2959A7B6008CD452 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		BD09AC6F2959D144008CD452 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
+		BD09AC722959D2FE008CD452 /* TrendingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingEndpoint.swift; sourceTree = "<group>"; };
 		C21B8ED8E16ED8525721F731 /* Pods-Cinema-CinemaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinema-CinemaUITests.release.xcconfig"; path = "Target Support Files/Pods-Cinema-CinemaUITests/Pods-Cinema-CinemaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EA116E1606FB590A43383B3A /* Pods-Cinema.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinema.debug.xcconfig"; path = "Target Support Files/Pods-Cinema/Pods-Cinema.debug.xcconfig"; sourceTree = "<group>"; };
 		F2EE66B69588E92916892DAB /* Pods-CinemaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaTests.release.xcconfig"; path = "Target Support Files/Pods-CinemaTests/Pods-CinemaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		BD09AC562959A35A008CD452 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				BD09AC6D2959D0D4008CD452 /* Data */,
 				BD09AC572959A35E008CD452 /* Networking */,
 			);
 			path = Core;
@@ -216,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				BD09AC642959A558008CD452 /* Endpoint.swift */,
+				BD09AC722959D2FE008CD452 /* TrendingEndpoint.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -234,6 +240,22 @@
 				BD09AC672959A6D7008CD452 /* JSONParser.swift */,
 			);
 			path = Parser;
+			sourceTree = "<group>";
+		};
+		BD09AC6D2959D0D4008CD452 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BD09AC6E2959D0D8008CD452 /* Models */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BD09AC6E2959D0D8008CD452 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BD09AC6F2959D144008CD452 /* MediaItem.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		EDD82B04E28879064349A2DC /* Pods */ = {
@@ -496,7 +518,9 @@
 				BD09AC6C2959A7B6008CD452 /* APIService.swift in Sources */,
 				BD09AC2829598FD6008CD452 /* SceneDelegate.swift in Sources */,
 				BD09AC6A2959A75D008CD452 /* API.swift in Sources */,
+				BD09AC732959D2FE008CD452 /* TrendingEndpoint.swift in Sources */,
 				BD09AC5F2959A465008CD452 /* RequestType.swift in Sources */,
+				BD09AC702959D144008CD452 /* MediaItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

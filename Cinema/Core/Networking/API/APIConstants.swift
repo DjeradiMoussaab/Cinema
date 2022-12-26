@@ -8,10 +8,15 @@
 import Foundation
 
 enum APIConstants {
-    static let host = "api.themoviedb.org/3"
+    static let host = "api.themoviedb.org"
     static let scheme = "https"
 }
 
 extension APIConstants {
     static let accessToken = "fb4da7e70c1614ad65b4a521264d9459"
+}
+
+extension APIConstants {
+    static let dailyTrendingPath = "/3/trending/all/day"
+    static let weeklyTrendingPath = "/3/trending/all/week"
 }
