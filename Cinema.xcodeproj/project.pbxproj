@@ -20,6 +20,7 @@
 		BD09AC5F2959A465008CD452 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC5E2959A465008CD452 /* RequestType.swift */; };
 		BD09AC612959A4AC008CD452 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC602959A4AC008CD452 /* ErrorType.swift */; };
 		BD09AC632959A4F1008CD452 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC622959A4F1008CD452 /* APIConstants.swift */; };
+		BD09AC652959A558008CD452 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC642959A558008CD452 /* Endpoint.swift */; };
 		F95A5C18549C4713EF318FAF /* Pods_Cinema.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE1E28ADDCEE4A4817494B3 /* Pods_Cinema.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		BD09AC5E2959A465008CD452 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		BD09AC602959A4AC008CD452 /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 		BD09AC622959A4F1008CD452 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		BD09AC642959A558008CD452 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		C21B8ED8E16ED8525721F731 /* Pods-Cinema-CinemaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinema-CinemaUITests.release.xcconfig"; path = "Target Support Files/Pods-Cinema-CinemaUITests/Pods-Cinema-CinemaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EA116E1606FB590A43383B3A /* Pods-Cinema.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinema.debug.xcconfig"; path = "Target Support Files/Pods-Cinema/Pods-Cinema.debug.xcconfig"; sourceTree = "<group>"; };
 		F2EE66B69588E92916892DAB /* Pods-CinemaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaTests.release.xcconfig"; path = "Target Support Files/Pods-CinemaTests/Pods-CinemaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 		BD09AC5A2959A37A008CD452 /* Endpoint */ = {
 			isa = PBXGroup;
 			children = (
+				BD09AC642959A558008CD452 /* Endpoint.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD09AC652959A558008CD452 /* Endpoint.swift in Sources */,
 				BD09AC2A29598FD6008CD452 /* ViewController.swift in Sources */,
 				BD09AC612959A4AC008CD452 /* ErrorType.swift in Sources */,
 				BD09AC632959A4F1008CD452 /* APIConstants.swift in Sources */,
