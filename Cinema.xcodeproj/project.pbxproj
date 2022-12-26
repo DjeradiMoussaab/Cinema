@@ -124,6 +124,7 @@
 		BD09AC2429598FD6008CD452 /* Cinema */ = {
 			isa = PBXGroup;
 			children = (
+				BD09AC562959A35A008CD452 /* Core */,
 				BD09AC5529599354008CD452 /* AppDelegate */,
 				BD09AC2929598FD6008CD452 /* ViewController.swift */,
 				BD09AC2E29598FD8008CD452 /* Assets.xcassets */,
@@ -159,6 +160,53 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
+		BD09AC562959A35A008CD452 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BD09AC572959A35E008CD452 /* Networking */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BD09AC572959A35E008CD452 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BD09AC5B2959A38E008CD452 /* Helpers */,
+				BD09AC5A2959A37A008CD452 /* Endpoint */,
+				BD09AC592959A373008CD452 /* API */,
+				BD09AC582959A36F008CD452 /* Enums */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		BD09AC582959A36F008CD452 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		BD09AC592959A373008CD452 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		BD09AC5A2959A37A008CD452 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		BD09AC5B2959A38E008CD452 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		EDD82B04E28879064349A2DC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +217,6 @@
 				8B41C20977028EDEB7E54B59 /* Pods-CinemaTests.debug.xcconfig */,
 				F2EE66B69588E92916892DAB /* Pods-CinemaTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
