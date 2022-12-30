@@ -11,7 +11,6 @@
 		BABC58010E1A32AE0EFEA821 /* Pods_CinemaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4132EA1E1C5FFF96216E3B /* Pods_CinemaTests.framework */; };
 		BD09AC2629598FD6008CD452 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC2529598FD6008CD452 /* AppDelegate.swift */; };
 		BD09AC2829598FD6008CD452 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC2729598FD6008CD452 /* SceneDelegate.swift */; };
-		BD09AC2A29598FD6008CD452 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC2929598FD6008CD452 /* ViewController.swift */; };
 		BD09AC2F29598FD8008CD452 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD09AC2E29598FD8008CD452 /* Assets.xcassets */; };
 		BD09AC3229598FD8008CD452 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD09AC3029598FD8008CD452 /* LaunchScreen.storyboard */; };
 		BD09AC3D29598FD8008CD452 /* CinemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC3C29598FD8008CD452 /* CinemaTests.swift */; };
@@ -65,7 +64,6 @@
 		BD09AC2229598FD6008CD452 /* Cinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD09AC2529598FD6008CD452 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD09AC2729598FD6008CD452 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BD09AC2929598FD6008CD452 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BD09AC2E29598FD8008CD452 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD09AC3129598FD8008CD452 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD09AC3329598FD8008CD452 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 				BD09AC77295C726F008CD452 /* Coordinators */,
 				BD09AC7A295C7291008CD452 /* Features */,
 				BD09AC5529599354008CD452 /* AppDelegate */,
-				BD09AC2929598FD6008CD452 /* ViewController.swift */,
 				BD09AC2E29598FD8008CD452 /* Assets.xcassets */,
 				BD09AC3029598FD8008CD452 /* LaunchScreen.storyboard */,
 				BD09AC3329598FD8008CD452 /* Info.plist */,
@@ -586,7 +583,6 @@
 			files = (
 				BD09AC652959A558008CD452 /* Endpoint.swift in Sources */,
 				BD09AC8C295DC5E3008CD452 /* timePeriod.swift in Sources */,
-				BD09AC2A29598FD6008CD452 /* ViewController.swift in Sources */,
 				BD09AC79295C727D008CD452 /* BaseCoordinator.swift in Sources */,
 				BD09AC83295C73AB008CD452 /* TrendingCoordinator.swift in Sources */,
 				BD09AC90295DCB83008CD452 /* ImageURLGenerator.swift in Sources */,
