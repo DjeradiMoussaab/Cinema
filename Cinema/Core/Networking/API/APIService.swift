@@ -11,7 +11,7 @@ import RxSwift
 // MARK: - API Serivce Protocol
 
 protocol APIServiceProtocol {
-    func perform<T:Decodable>(_ endpoint: Endpoint) -> Single<T>
+    func perform<T:Decodable>(_ endpoint: Endpoint) -> Observable<T>
 }
 
 // MARK: - API Serivce 
@@ -20,30 +20,24 @@ struct APIService: APIServiceProtocol {
     
     private let api: APIProtocol
     private let jsonParser: JSONParserProtocol
-    
-    init(_ api: APIProtocol = API(),_ jsonParser: JSONParserProtocol = JSONParser()) {
+    private let imageURLGenerator: ImageURLGeneratorProtocol
+
+    init(_ api: APIProtocol = API(),_ jsonParser: JSONParserProtocol = JSONParser(),_ imageURLGenerator: ImageURLGeneratorProtocol = ImageURLGenerator()) {
         self.api = api
         self.jsonParser = jsonParser
+        self.imageURLGenerator = imageURLGenerator
     }
-
-    func perform<T:Decodable>(_ endpoint: Endpoint) -> Single<T> {
+    
+    func perform<T:Decodable>(_ endpoint: Endpoint) -> Observable<T> {
         
-        return Single.create { (single) -> Disposable in
-            
-            let task = Task {
-                do {
-                    let response = try await api.makeRequest(endpoint)
-                    let decodedResponse: T = try self.jsonParser.decode(response)
-                    print(decodedResponse)
-                    single(.success(decodedResponse))
-                } catch {
-                    single(.failure(ErrorType.unknown))
-                }
+        return Observable.just(endpoint)
+            .flatMap { Endpoint -> Observable<Data> in
+                return try api.makeRequest(endpoint)
             }
-            return Disposables.create(with: {
-                task.cancel()
-            })
-        }
+            .map { data -> T in
+                let decodedResponse: T = try self.jsonParser.decode(data)
+                return decodedResponse
+            }
     }
 
 }
