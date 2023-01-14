@@ -42,12 +42,17 @@ final class TrendingViewModel {
                 }
             })
             .map({ TrendingResult -> [MediaItemSection] in
-                switch period {
-                case .daily:
-                    return [MediaItemSection(model: 0, items: TrendingResult), MediaItemSection(model: 1, items: TrendingResult)]
-                case .weekly:
-                    return [MediaItemSection(model: 1, items: TrendingResult)]
-                }
+                return [
+                    MediaItemSection(
+                        model: 0,
+                        items: TrendingResult.filter { $0.mediaType == .tv }
+                    ),
+                    MediaItemSection(
+                        model: 1,
+                        items: TrendingResult.filter { $0.mediaType == .movie }
+                    )
+                ]
+
             })
             .subscribe(onNext: { trending  in
                 self.trending.onNext(trending)
