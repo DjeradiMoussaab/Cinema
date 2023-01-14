@@ -8,56 +8,134 @@
 import Foundation
 import UIKit
 import RxSwift
+import RxCocoa
+import RxDataSources
 
 class TrendingViewController: UIViewController {
     
-    private var trendingView: TrendingView!
     private var trendingViewModel = TrendingViewModel()
     
     private let disposeBag = DisposeBag()
     
+    var collectionView: UICollectionView!
+
+    private lazy var dataSource = RxCollectionViewSectionedReloadDataSource<MediaItemSection>(configureCell:{ dataSource, collectionView, indexPath, item in
+        
+        let mediaItemCell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaItemCell.reuseIdentifier, for: indexPath) as! MediaItemCell
+        self.trendingViewModel.downloadImage(for: item)
+            .bind(to: mediaItemCell.imageView.rx.image)
+            .disposed(by: self.disposeBag)
+        mediaItemCell.configure(with: item)
+        return mediaItemCell
+    })
     
     override func viewDidLoad() {
         setupViews()
         populateTrending(withTimePeriod: .daily)
         
-        /// verifiying the state value changes flow before and after fetching data.
-        trendingViewModel.dailyState
-            .map({ state in
-                switch state {
-                case .loading:
-                    print("it's loading")
-                case .success:
-                    print("it has succeded")
-                case .failure:
-                    print("it has failed")
-                }
-            })
-            .subscribe()
-            .disposed(by: disposeBag)
     }
     
     private func setupViews() {
-        view.backgroundColor = .blue
-        trendingView = TrendingView()
-        view.addSubview(trendingView)
-        NSLayoutConstraint.activate([
-            trendingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            trendingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            trendingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
+        view.backgroundColor = .systemBackground
+        self.title = "TRENDINGS"
+
+        self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(MediaItemCell.self, forCellWithReuseIdentifier: MediaItemCell.reuseIdentifier)
+        self.collectionView.register(HeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCell.reuseIdentifier)
+        
+        dataSource.configureSupplementaryView = { (dataSource, collectionView, kind, indexPath) in
+            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCell.reuseIdentifier, for: indexPath) as! HeaderCell
+            if indexPath.section == 0 {
+                cell.configure(with: ("TRENDING", "TV SHOWS"))
+            } else {
+                cell.configure(with: ("TRENDING", "MOVIES"))
+            }
+            return cell
+        }
+        
+        view.addSubview(collectionView)
     }
+    
     
     func populateTrending(withTimePeriod period: TimePeriod) {
         /// fetch Trending
-        trendingViewModel.fetchTrending(withTimePeriod: period, disposeBag)
-        
+        trendingViewModel.fetchTrending(withTimePeriod: .daily, disposeBag)
+
         /// use dailyTrending after fetching is completed
-        trendingViewModel.dailyTrending
-            .subscribe(onNext: { trending in
-                print("total pagess: \(trending.totalPages)")
-            })
+        trendingViewModel.trending
+            .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+
     }
 
+}
+
+// MARK: - COMPOSITIONAL LAYOUT
+
+extension TrendingViewController {
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            if (sectionIndex == 0 ) {
+                return self.createHorizontalSectionLayout()
+            } else {
+                return self.createVericalSectionLayout()
+            }
+        }
+        return layout
+    }
+
+    private func createHorizontalSectionLayout() -> NSCollectionLayoutSection {
+        
+        /// create sizes for items and groups.
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
+        let groupeSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(280))
+
+        /// create item and group.
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 0)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupeSize, subitems: [item])
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(40))
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: -20, leading: 8, bottom: -20, trailing: 0)
+        
+        
+        /// create the section.
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [sectionHeader]
+        return section
+    }
+    
+    private func createVericalSectionLayout() -> NSCollectionLayoutSection {
+        
+        /// create sizes for items and groups.
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let groupeSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(260))
+
+        /// create item and group.
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8)
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupeSize, subitems: [item])
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(40))
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: -20, leading: 8, bottom: -20, trailing: 0)
+        
+        /// create the section.
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [sectionHeader]
+        return section
+    }
 }

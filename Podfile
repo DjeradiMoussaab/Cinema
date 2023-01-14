@@ -8,6 +8,8 @@ target 'Cinema' do
   # Pods for Cinema
 	pod "RxSwift"
 	pod "RxCocoa"
+	pod 'RxDataSources', '~> 5.0'
+	pod 'RxAlamofire'
 
   target 'CinemaTests' do
     inherit! :search_paths

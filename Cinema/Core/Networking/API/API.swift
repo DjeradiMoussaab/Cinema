@@ -20,6 +20,7 @@ protocol APIProtocol {
 final class API: APIProtocol {
     
     private let cachedImages = NSCache<NSString, NSData>()
+    //wrapper
     
     func makeRequest(_ endpoint: Endpoint) throws -> Observable<Data> {
         let requestURL = try endpoint.generateRequestURL()

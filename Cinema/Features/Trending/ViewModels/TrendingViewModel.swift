@@ -9,18 +9,18 @@ import Foundation
 import RxSwift
 import RxRelay
 import RxCocoa
+import RxAlamofire
 
 final class TrendingViewModel {
     
     private var apiService: APIService
-    var dailyState = BehaviorRelay<State>(value: .loading)
-    var weeklyState = BehaviorRelay<State>(value: .loading)
+    private var imageURLGenerator: ImageURLGenerator
     
-    let dailyTrending = PublishSubject<TrendingResult>()
-    let WeeklyTrending = PublishSubject<TrendingResult>()
+    let trending = PublishSubject<[MediaItemSection]>()
 
     init(apiService: APIService = APIService()) {
         self.apiService = apiService
+        self.imageURLGenerator = ImageURLGenerator()
     }
     
     func fetchTrending(withTimePeriod period : TimePeriod,_ disposeBag: DisposeBag) {
@@ -36,19 +36,41 @@ final class TrendingViewModel {
             .map({ trending -> TrendingResult in
                 return trending
             })
-            .subscribe(onNext: { trending  in
-                switch period {
-                case .daily:
-                    self.dailyTrending.onNext(trending)
-                    self.dailyState.accept(.success)
-                    self.dailyTrending.onCompleted()
-                case .weekly:
-                    self.WeeklyTrending.onNext(trending)
-                    self.weeklyState.accept(.success)
-                    self.WeeklyTrending.onCompleted()
+            .compactMap({ TrendingResult in
+                TrendingResult.results.compactMap { MediaItem in
+                    return MediaItemViewModel(With: MediaItem)
                 }
             })
+            .map({ TrendingResult -> [MediaItemSection] in
+                switch period {
+                case .daily:
+                    return [MediaItemSection(model: 0, items: TrendingResult), MediaItemSection(model: 1, items: TrendingResult)]
+                case .weekly:
+                    return [MediaItemSection(model: 1, items: TrendingResult)]
+                }
+            })
+            .subscribe(onNext: { trending  in
+                self.trending.onNext(trending)
+                self.trending.onCompleted()
+            })
             .disposed(by: disposeBag)
+    }
+    
+    func downloadImage(for item: MediaItemSection.Item) -> Observable<UIImage> {
+        do {
+            let url = try imageURLGenerator.generateURL(with: item.imagePath)
+            return RxAlamofire
+                .requestData(.get, url)
+                .map({ (response,data) -> UIImage in
+                    return UIImage(data: data)!
+                })
+        } catch {
+            return Observable.create { observer in
+                observer.onCompleted()
+                return Disposables.create()
+            }
+        }
+
     }
 
 }
