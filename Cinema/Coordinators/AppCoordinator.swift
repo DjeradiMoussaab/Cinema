@@ -17,16 +17,18 @@ class AppCoordinator: BaseCoordinator {
     private let navigationController: UINavigationController = {
         return UINavigationController()
     }()
+    var rootViewController: UIViewController?
     
     init(window: UIWindow) {
         self.window = window
     }
     
     override func start() {
-        let trendingCoordinator = TrendingCoordinator(navigationController: navigationController)
-        self.Add(coordinator: trendingCoordinator)
-        trendingCoordinator.start()
-        window.rootViewController =  navigationController
+        rootViewController = UITabBarController()
+        let tabCoordinator = TabCoordinator(tabBarController: rootViewController as! UITabBarController)
+        self.Add(coordinator: tabCoordinator)
+        tabCoordinator.start()
+        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
     }
     
