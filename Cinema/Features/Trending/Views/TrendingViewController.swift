@@ -37,7 +37,7 @@ class TrendingViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = .systemBackground
-        self.title = "TRENDINGS"
+        self.title = Tabs.trending.rawValue
 
         self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
