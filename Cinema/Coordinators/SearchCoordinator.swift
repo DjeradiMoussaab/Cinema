@@ -1,16 +1,16 @@
 //
-//  TrendingCoordinator.swift
+//  SearchCoordinator.swift
 //  Cinema
 //
-//  Created by Moussaab Djeradi on 28/12/2022.
+//  Created by Moussaab Djeradi on 17/1/2023.
 //
 
 import Foundation
 import UIKit
 
-// MARK: The Trending Page Coordinator
+// MARK: The Search Page Coordinator
 
-class TrendingCoordinator: BaseCoordinator {
+class SearchCoordinator: BaseCoordinator {
     
     var navigationController: UINavigationController!
     
@@ -20,9 +20,10 @@ class TrendingCoordinator: BaseCoordinator {
     
     override func start() {
         
-        let viewController = TrendingViewController()
+        let viewController = SearchViewController()
         navigationController.pushViewController(viewController, animated: true)
         
     }
     
 }
+
