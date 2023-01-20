@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import RxAlamofire
 
 final class SearchViewModel {
     
@@ -91,22 +90,20 @@ final class SearchViewModel {
             })
             .asDriver(onErrorJustReturn: [])
     }
-    
-    func downloadImage(for item: SearchItemSection.Item) -> Observable<UIImage> {
+
+    func downloadImage(for item: SearchItemSection.Item) -> Observable<UIImage?> {
         do {
             let url = try imageURLGenerator.generateURL(with: item.imagePath)
-            return RxAlamofire
-                .requestData(.get, url)
-                .map({ (response,data) -> UIImage in
-                    return UIImage(data: data)!
-                })
+            let urlRequest = URLRequest(url: url)
+            return URLSession.shared.rx
+                .data(request: urlRequest)
+                .map { data in UIImage(data: data) }
         } catch {
             return Observable.create { observer in
                 observer.onCompleted()
                 return Disposables.create()
             }
         }
-
     }
     
 }

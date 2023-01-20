@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 import RxRelay
 import RxCocoa
-import RxAlamofire
 
 final class TrendingViewModel {
     
@@ -52,7 +51,6 @@ final class TrendingViewModel {
                         items: TrendingResult.filter { $0.mediaType == .movie }
                     )
                 ]
-
             })
             .subscribe(onNext: { trending  in
                 self.trending.onNext(trending)
@@ -61,21 +59,19 @@ final class TrendingViewModel {
             .disposed(by: disposeBag)
     }
     
-    func downloadImage(for item: MediaItemSection.Item) -> Observable<UIImage> {
+    func downloadImage(for item: MediaItemSection.Item) -> Observable<UIImage?> {
         do {
             let url = try imageURLGenerator.generateURL(with: item.imagePath)
-            return RxAlamofire
-                .requestData(.get, url)
-                .map({ (response,data) -> UIImage in
-                    return UIImage(data: data)!
-                })
+            let urlRequest = URLRequest(url: url)
+            return URLSession.shared.rx
+                .data(request: urlRequest)
+                .map { data in UIImage(data: data) }
         } catch {
             return Observable.create { observer in
                 observer.onCompleted()
                 return Disposables.create()
             }
         }
-
     }
 
 }
