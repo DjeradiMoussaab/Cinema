@@ -104,7 +104,7 @@ extension TrendingViewController {
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: -20, leading: 8, bottom: -20, trailing: 0)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 0)
         
         
         /// create the section.
@@ -131,7 +131,7 @@ extension TrendingViewController {
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: -20, leading: 8, bottom: -20, trailing: 0)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 0)
         
         /// create the section.
         let section = NSCollectionLayoutSection(group: group)
