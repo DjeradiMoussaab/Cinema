@@ -36,7 +36,7 @@ class TabCoordinator: BaseCoordinator {
         trendingController.tabBarItem = UITabBarItem(title: Tabs.trending.rawValue, image: UIImage.init(systemName: "film"), selectedImage: UIImage.init(systemName: "film.fill"))
         
         let searchController = searchCoordinator.navigationController!
-        searchController.tabBarItem = UITabBarItem(title: Tabs.trending.rawValue, image: UIImage.init(systemName: "magnifyingglass.circle"), selectedImage: UIImage.init(systemName: "magnifyingglass.circle.fill"))
+        searchController.tabBarItem = UITabBarItem(title: Tabs.search.rawValue, image: UIImage.init(systemName: "magnifyingglass.circle"), selectedImage: UIImage.init(systemName: "magnifyingglass.circle.fill"))
         
         
         Add(coordinator: trendingCoordinator)

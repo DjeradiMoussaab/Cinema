@@ -41,6 +41,8 @@
 		BD67D5CE2976CF3F00326F93 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67D5CD2976CF3F00326F93 /* SearchViewController.swift */; };
 		BD67D5D02976CF4C00326F93 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67D5CF2976CF4C00326F93 /* SearchViewModel.swift */; };
 		BD67D5D22976D18500326F93 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67D5D12976D18500326F93 /* SearchCoordinator.swift */; };
+		BD67D5D42979E28D00326F93 /* SearchItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67D5D32979E28D00326F93 /* SearchItemCell.swift */; };
+		BD67D5D62979EADF00326F93 /* SearchItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67D5D52979EADF00326F93 /* SearchItemViewModel.swift */; };
 		F95A5C18549C4713EF318FAF /* Pods_Cinema.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE1E28ADDCEE4A4817494B3 /* Pods_Cinema.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +106,8 @@
 		BD67D5CD2976CF3F00326F93 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BD67D5CF2976CF4C00326F93 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BD67D5D12976D18500326F93 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		BD67D5D32979E28D00326F93 /* SearchItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemCell.swift; sourceTree = "<group>"; };
+		BD67D5D52979EADF00326F93 /* SearchItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemViewModel.swift; sourceTree = "<group>"; };
 		C21B8ED8E16ED8525721F731 /* Pods-Cinema-CinemaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinema-CinemaUITests.release.xcconfig"; path = "Target Support Files/Pods-Cinema-CinemaUITests/Pods-Cinema-CinemaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EA116E1606FB590A43383B3A /* Pods-Cinema.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinema.debug.xcconfig"; path = "Target Support Files/Pods-Cinema/Pods-Cinema.debug.xcconfig"; sourceTree = "<group>"; };
 		F2EE66B69588E92916892DAB /* Pods-CinemaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaTests.release.xcconfig"; path = "Target Support Files/Pods-CinemaTests/Pods-CinemaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -391,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				BD67D5CD2976CF3F00326F93 /* SearchViewController.swift */,
+				BD67D5D32979E28D00326F93 /* SearchItemCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -399,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				BD67D5CF2976CF4C00326F93 /* SearchViewModel.swift */,
+				BD67D5D52979EADF00326F93 /* SearchItemViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -686,6 +692,7 @@
 				BD09AC8C295DC5E3008CD452 /* timePeriod.swift in Sources */,
 				BD09AC79295C727D008CD452 /* BaseCoordinator.swift in Sources */,
 				BD09AC83295C73AB008CD452 /* TrendingCoordinator.swift in Sources */,
+				BD67D5D42979E28D00326F93 /* SearchItemCell.swift in Sources */,
 				BD67D5D22976D18500326F93 /* SearchCoordinator.swift in Sources */,
 				BD09AC90295DCB83008CD452 /* ImageURLGenerator.swift in Sources */,
 				BD09AC682959A6D7008CD452 /* JSONParser.swift in Sources */,
@@ -702,6 +709,7 @@
 				BD09AC81295C7308008CD452 /* TrendingViewModel.swift in Sources */,
 				BD09AC6C2959A7B6008CD452 /* APIService.swift in Sources */,
 				BD67D5D02976CF4C00326F93 /* SearchViewModel.swift in Sources */,
+				BD67D5D62979EADF00326F93 /* SearchItemViewModel.swift in Sources */,
 				BD09AC2829598FD6008CD452 /* SceneDelegate.swift in Sources */,
 				BD09AC6A2959A75D008CD452 /* API.swift in Sources */,
 				BD67D5BA296588BE00326F93 /* MediaItemCell.swift in Sources */,
