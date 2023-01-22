@@ -10,13 +10,13 @@ import RxSwift
 
 // MARK: - API Serivce Protocol
 
-protocol APIServiceProtocol {
+protocol APIClientProtocol {
     func perform<T:Decodable>(_ endpoint: Endpoint) -> Observable<T>
 }
 
 // MARK: - API Serivce 
 
-struct APIService: APIServiceProtocol {
+struct APIClient: APIClientProtocol {
     
     private let api: APIProtocol
     private let jsonParser: JSONParserProtocol

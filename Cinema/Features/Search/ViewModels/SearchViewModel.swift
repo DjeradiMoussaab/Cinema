@@ -11,15 +11,15 @@ import RxCocoa
 
 final class SearchViewModel {
     
-    private var apiService: APIService
+    private var apiClient: APIClientProtocol
     private var imageURLGenerator: ImageURLGenerator
 
     
     let searchInput: Driver<String>
     let trending = BehaviorRelay<TrendingResult>(value: TrendingResult(page: 0, results: [], totalPages: 0, totalResults: 0))
     
-    init(apiService: APIService = APIService(), searchInput: Driver<String>) {
-        self.apiService = apiService
+    init(apiClient: APIClient = APIClient(), searchInput: Driver<String>) {
+        self.apiClient = apiClient
         self.imageURLGenerator = ImageURLGenerator()
         self.searchInput = searchInput
     }
@@ -33,7 +33,7 @@ final class SearchViewModel {
                 return TrendingEndpoint.getWeeklyTrending
             }
         }()
-        apiService.perform(endPoint)
+        apiClient.perform(endPoint)
             .map({ trending -> TrendingResult in
                 return trending
             })

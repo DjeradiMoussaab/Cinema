@@ -12,13 +12,13 @@ import RxCocoa
 
 final class TrendingViewModel {
     
-    private var apiService: APIService
+    private var apiClient: APIClientProtocol
     private var imageURLGenerator: ImageURLGenerator
     
     let trending = PublishSubject<[MediaItemSection]>()
 
-    init(apiService: APIService = APIService()) {
-        self.apiService = apiService
+    init(apiClient: APIClient = APIClient()) {
+        self.apiClient = apiClient
         self.imageURLGenerator = ImageURLGenerator()
     }
     
@@ -31,7 +31,7 @@ final class TrendingViewModel {
                 return TrendingEndpoint.getWeeklyTrending
             }
         }()
-        apiService.perform(endPoint)
+        apiClient.perform(endPoint)
             .map({ trending -> TrendingResult in
                 return trending
             })
