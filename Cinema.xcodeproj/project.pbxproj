@@ -22,7 +22,7 @@
 		BD09AC652959A558008CD452 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC642959A558008CD452 /* Endpoint.swift */; };
 		BD09AC682959A6D7008CD452 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC672959A6D7008CD452 /* JSONParser.swift */; };
 		BD09AC6A2959A75D008CD452 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC692959A75D008CD452 /* API.swift */; };
-		BD09AC6C2959A7B6008CD452 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC6B2959A7B6008CD452 /* APIService.swift */; };
+		BD09AC6C2959A7B6008CD452 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC6B2959A7B6008CD452 /* APIClient.swift */; };
 		BD09AC702959D144008CD452 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC6F2959D144008CD452 /* MediaItem.swift */; };
 		BD09AC732959D2FE008CD452 /* TrendingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC722959D2FE008CD452 /* TrendingEndpoint.swift */; };
 		BD09AC79295C727D008CD452 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD09AC78295C727D008CD452 /* BaseCoordinator.swift */; };
@@ -87,7 +87,7 @@
 		BD09AC642959A558008CD452 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		BD09AC672959A6D7008CD452 /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		BD09AC692959A75D008CD452 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		BD09AC6B2959A7B6008CD452 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		BD09AC6B2959A7B6008CD452 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		BD09AC6F2959D144008CD452 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		BD09AC722959D2FE008CD452 /* TrendingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingEndpoint.swift; sourceTree = "<group>"; };
 		BD09AC78295C727D008CD452 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
@@ -248,7 +248,7 @@
 			children = (
 				BD09AC622959A4F1008CD452 /* APIConstants.swift */,
 				BD09AC692959A75D008CD452 /* API.swift */,
-				BD09AC6B2959A7B6008CD452 /* APIService.swift */,
+				BD09AC6B2959A7B6008CD452 /* APIClient.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -707,7 +707,7 @@
 				BD09AC8A295C8006008CD452 /* State.swift in Sources */,
 				BD67D5CE2976CF3F00326F93 /* SearchViewController.swift in Sources */,
 				BD09AC81295C7308008CD452 /* TrendingViewModel.swift in Sources */,
-				BD09AC6C2959A7B6008CD452 /* APIService.swift in Sources */,
+				BD09AC6C2959A7B6008CD452 /* APIClient.swift in Sources */,
 				BD67D5D02976CF4C00326F93 /* SearchViewModel.swift in Sources */,
 				BD67D5D62979EADF00326F93 /* SearchItemViewModel.swift in Sources */,
 				BD09AC2829598FD6008CD452 /* SceneDelegate.swift in Sources */,
