@@ -12,7 +12,6 @@ import RxCocoa
 final class SearchViewModel {
     
     private var apiClient: APIClientProtocol
-    private var imageURLGenerator: ImageURLGenerator
 
     
     let searchInput: Driver<String>
@@ -20,7 +19,6 @@ final class SearchViewModel {
     
     init(apiClient: APIClient = APIClient(), searchInput: Driver<String>) {
         self.apiClient = apiClient
-        self.imageURLGenerator = ImageURLGenerator()
         self.searchInput = searchInput
     }
     
@@ -38,27 +36,22 @@ final class SearchViewModel {
                 return trending
             })
             .subscribe(onNext: { trending  in
-                print("got here resultsss 1")
                 self.trending.accept(trending)
             })
             .disposed(by: disposeBag)
     }
     
     func getSearchResults(disposeBag: DisposeBag) -> Driver<[SearchItemSection]> {
-        print("got here resultsss 3")
         let trendingObservable = trending
             .compactMap({ TrendingResult -> [SearchItemViewModel] in
-                print("got here resultsss 2")
                 return TrendingResult.results.compactMap { MediaItem in
                     return SearchItemViewModel(With: MediaItem)
                 }
             })
-            //.skip(1)
             .asObservable()
         
         let searchInputObservable = searchInput
             .map({ String -> String in
-                print("got here resultsss 5")
                 return String
             })
             .debounce(.milliseconds(200))
@@ -69,7 +62,6 @@ final class SearchViewModel {
         return Observable.combineLatest(trendingObservable, searchInputObservable)
             .map { (trendings, searchInput) in
                 trendings.filter { SearchItemViewModel in
-                    print("resultsss 11 : \(trendings.count)")
                     return !searchInput.isEmpty &&
                     SearchItemViewModel.title
                         .lowercased()
@@ -77,7 +69,6 @@ final class SearchViewModel {
                 }
             }
             .map({ TrendingResult -> [SearchItemSection] in
-                print("got here resultsss 4 \(TrendingResult)")
                 return [SearchItemSection (
                     model: 0,
                     items: TrendingResult
@@ -85,19 +76,14 @@ final class SearchViewModel {
                 
             })
             .map({ results -> [SearchItemSection] in
-                print("resultsss : \(results)")
                 return results
             })
             .asDriver(onErrorJustReturn: [])
     }
 
-    func downloadImage(for item: SearchItemSection.Item) -> Observable<UIImage?> {
+    func downloadImage(for item: SearchItemSection.Item) -> Observable<UIImage> {
         do {
-            let url = try imageURLGenerator.generateURL(with: item.imagePath)
-            let urlRequest = URLRequest(url: url)
-            return URLSession.shared.rx
-                .data(request: urlRequest)
-                .map { data in UIImage(data: data) }
+            return try apiClient.downloadImage(from: item.imagePath)
         } catch {
             return Observable.create { observer in
                 observer.onCompleted()

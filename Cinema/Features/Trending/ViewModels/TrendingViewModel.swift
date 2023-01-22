@@ -13,13 +13,11 @@ import RxCocoa
 final class TrendingViewModel {
     
     private var apiClient: APIClientProtocol
-    private var imageURLGenerator: ImageURLGenerator
     
     let trending = PublishSubject<[MediaItemSection]>()
 
     init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
-        self.imageURLGenerator = ImageURLGenerator()
     }
     
     func fetchTrending(withTimePeriod period : TimePeriod,_ disposeBag: DisposeBag) {
@@ -59,13 +57,9 @@ final class TrendingViewModel {
             .disposed(by: disposeBag)
     }
     
-    func downloadImage(for item: MediaItemSection.Item) -> Observable<UIImage?> {
+    func downloadImage(for item: MediaItemSection.Item) -> Observable<UIImage> {
         do {
-            let url = try imageURLGenerator.generateURL(with: item.imagePath)
-            let urlRequest = URLRequest(url: url)
-            return URLSession.shared.rx
-                .data(request: urlRequest)
-                .map { data in UIImage(data: data) }
+            return try apiClient.downloadImage(from: item.imagePath)
         } catch {
             return Observable.create { observer in
                 observer.onCompleted()

@@ -12,6 +12,7 @@ import RxSwift
 
 protocol APIClientProtocol {
     func perform<T:Decodable>(_ endpoint: Endpoint) -> Observable<T>
+    func downloadImage(from imagePath: String) throws -> Observable<UIImage>
 }
 
 // MARK: - API Serivce 
@@ -38,6 +39,19 @@ struct APIClient: APIClientProtocol {
                 let decodedResponse: T = try self.jsonParser.decode(data)
                 return decodedResponse
             }
+    }
+    
+    func downloadImage(from imagePath: String) throws -> Observable<UIImage> {
+        do {
+            let url = try imageURLGenerator.generateURL(with: imagePath)
+            return try api.makeRequest(from: url)
+                .map { data in UIImage(data: data)! }
+        } catch {
+            return Observable.create { observer in
+                observer.onError(ErrorType.unknown)
+                return Disposables.create()
+            }
+        }
     }
 
 }
