@@ -91,7 +91,7 @@ extension TrendingViewController {
         
         /// create sizes for items and groups.
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
-        let groupeSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(280))
+        let groupeSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(240))
 
         /// create item and group.
         let item = NSCollectionLayoutItem(layoutSize: itemSize)

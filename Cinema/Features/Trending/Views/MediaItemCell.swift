@@ -62,12 +62,15 @@ class MediaItemCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 4
+        stackView.alignment = .fill
         addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 280),
+            heightAnchor.constraint(equalToConstant: 240),
             imageView.heightAnchor.constraint(equalToConstant: 180),
-            //imageView.widthAnchor.constraint(equalToConstant: 200),
+            title.heightAnchor.constraint(equalToConstant: 20),
+            releaseDate.heightAnchor.constraint(equalToConstant: 20),
+            rating.heightAnchor.constraint(equalToConstant: 20),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),

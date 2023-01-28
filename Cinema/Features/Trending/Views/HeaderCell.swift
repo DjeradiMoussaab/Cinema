@@ -20,6 +20,7 @@ class HeaderCell: UICollectionViewCell {
         v.font = .systemFont(ofSize: 28, weight: .heavy)
         v.textColor = .label
         v.numberOfLines = 2
+        v.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         v.textAlignment = .left
         return v
     }()
@@ -47,14 +48,15 @@ class HeaderCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 4
+        stackView.alignment = .fill
         addSubview(stackView)
         
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 40),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
  
         ])
     }

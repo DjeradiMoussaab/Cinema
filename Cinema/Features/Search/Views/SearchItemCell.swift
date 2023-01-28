@@ -69,14 +69,17 @@ class SearchItemCell: UITableViewCell {
         NSLayoutConstraint.activate([
             searchImageView.widthAnchor.constraint(equalToConstant: 72),
             searchImageView.heightAnchor.constraint(equalToConstant: 72),
-            searchImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            searchImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             searchImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            
+            title.heightAnchor.constraint(equalToConstant: 40),
+            releaseDate.heightAnchor.constraint(equalToConstant: 20),
+            rating.heightAnchor.constraint(equalToConstant: 20),
+
             stackView.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 8),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             
         ])
