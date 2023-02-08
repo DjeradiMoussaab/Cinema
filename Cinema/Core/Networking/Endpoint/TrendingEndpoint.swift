@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Trending Endpoint Enumeration
 
-enum TrendingEndpoint: Endpoint {
+enum TrendingEndpoint: Endpoint {    
     case getDailyTrending
     case getWeeklyTrending
 }
@@ -24,14 +24,6 @@ extension TrendingEndpoint {
         }
     }
     
-    var headers: [String : String] {
-        [:]
-    }
-    
-    var body: [String : String] {
-        [:]
-    }
-    
     var parameters: [String : String] {
         ["api_key":APIConstants.accessToken]
     }
@@ -44,4 +36,10 @@ extension TrendingEndpoint {
             return APIConstants.weeklyTrendingPath
         }
     }
+}
+
+
+extension APIConstants {
+    static let dailyTrendingPath = "/3/trending/all/day"
+    static let weeklyTrendingPath = "/3/trending/all/week"
 }
