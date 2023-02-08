@@ -49,14 +49,14 @@ class SearchViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGroupedBackground
         self.title = Tabs.search.rawValue
-        
-        tableView = UITableView()
+        tableView = UITableView(frame: self.view.frame, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = .systemGroupedBackground
         tableView.rowHeight = 80
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 96, bottom: 0, right: 0)
         tableView.register(SearchItemCell.self, forCellReuseIdentifier: SearchItemCell.reuseIdentifier)
         
         
@@ -66,10 +66,10 @@ class SearchViewController: UIViewController {
         NSLayoutConstraint.activate([
             searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            searchTextField.heightAnchor.constraint(equalToConstant: 50),
+            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            searchTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 16),
+            tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

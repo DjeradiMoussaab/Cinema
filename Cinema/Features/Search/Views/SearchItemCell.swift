@@ -17,6 +17,7 @@ class SearchItemCell: UITableViewCell {
         let v = UIImageView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.clipsToBounds = true
+        v.layer.cornerRadius = 36
         v.backgroundColor = .darkGray
         v.contentMode = .scaleAspectFill
         return v
@@ -25,7 +26,7 @@ class SearchItemCell: UITableViewCell {
     let title : UILabel = {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.font = UIFont.preferredFont(forTextStyle: .caption1)
+        v.font = UIFont.preferredFont(forTextStyle: .title3)
         v.textColor = .label
         v.numberOfLines = 2
         v.textAlignment = .left
@@ -35,7 +36,7 @@ class SearchItemCell: UITableViewCell {
     let releaseDate : UILabel = {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.font = UIFont.preferredFont(forTextStyle: .caption2)
+        v.font = UIFont.preferredFont(forTextStyle: .caption1)
         v.textColor = .label
         return v
     }()
@@ -43,7 +44,7 @@ class SearchItemCell: UITableViewCell {
     let rating : UILabel = {
         let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.font = UIFont.preferredFont(forTextStyle: .caption2)
+        v.font = UIFont.preferredFont(forTextStyle: .caption1)
         v.textColor = .label
         return v
     }()
@@ -72,14 +73,13 @@ class SearchItemCell: UITableViewCell {
             searchImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             searchImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            title.heightAnchor.constraint(equalToConstant: 40),
-            releaseDate.heightAnchor.constraint(equalToConstant: 20),
-            rating.heightAnchor.constraint(equalToConstant: 20),
+            title.heightAnchor.constraint(equalToConstant: 20),
+            releaseDate.heightAnchor.constraint(equalToConstant: 12),
+            rating.heightAnchor.constraint(equalToConstant: 12),
 
-            stackView.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8),
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
             
         ])
@@ -88,8 +88,8 @@ class SearchItemCell: UITableViewCell {
 
     func configure(with item: SearchItemViewModel) {
         title.text = item.title
-        releaseDate.text = item.releaseDate
-        rating.text = "\(item.rating)"
+        releaseDate.text = "Released on:\(item.releaseDate)"
+        rating.text = "Rated: \(item.rating)"
     }
     
     override func prepareForReuse() {

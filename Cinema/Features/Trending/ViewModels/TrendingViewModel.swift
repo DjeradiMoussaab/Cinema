@@ -15,7 +15,7 @@ final class TrendingViewModel {
     private var apiClient: APIClientProtocol
     
     let trending = PublishSubject<[MediaItemSection]>()
-
+    
     init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
     }
@@ -58,14 +58,9 @@ final class TrendingViewModel {
     }
     
     func downloadImage(for item: MediaItemSection.Item) -> Observable<UIImage> {
-        do {
-            return try apiClient.downloadImage(from: item.imagePath)
-        } catch {
-            return Observable.create { observer in
-                observer.onCompleted()
-                return Disposables.create()
-            }
-        }
+        return apiClient
+            .perform(ImageEndpoint
+                .downloadImage(backdropPath: item.imagePath))
     }
-
+    
 }

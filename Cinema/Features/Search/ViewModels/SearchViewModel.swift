@@ -82,14 +82,9 @@ final class SearchViewModel {
     }
 
     func downloadImage(for item: SearchItemSection.Item) -> Observable<UIImage> {
-        do {
-            return try apiClient.downloadImage(from: item.imagePath)
-        } catch {
-            return Observable.create { observer in
-                observer.onCompleted()
-                return Disposables.create()
-            }
-        }
+        return apiClient
+            .perform(ImageEndpoint
+                .downloadImage(backdropPath: item.imagePath))
     }
     
 }

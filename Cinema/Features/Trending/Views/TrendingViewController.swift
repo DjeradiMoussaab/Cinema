@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-
 class TrendingViewController: UIViewController {
     
     private var trendingViewModel = TrendingViewModel()
