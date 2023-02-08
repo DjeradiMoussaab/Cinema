@@ -12,11 +12,8 @@ import UIKit
 // MARK: The App Coordinator
 
 class AppCoordinator: BaseCoordinator {
-    
+        
     private let window: UIWindow
-    private let navigationController: UINavigationController = {
-        return UINavigationController()
-    }()
     var rootViewController: UIViewController?
     
     init(window: UIWindow) {
