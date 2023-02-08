@@ -12,4 +12,5 @@ enum Tabs: String {
     case search = "SEARCH"
     case favorite = "FAVORITE"
     case profile = "PROFILE"
+    case login = "LOGIN"
 }
