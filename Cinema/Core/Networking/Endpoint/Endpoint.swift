@@ -30,6 +30,18 @@ extension Endpoint {
         return APIConstants.host
     }
     
+    var headers: [String : String] {
+        [:]
+    }
+    
+    var body: [String : String] {
+        [:]
+    }
+    
+    var parameters: [String : String] {
+        [:]
+    }
+    
     func generateRequestURL() throws -> URLRequest {
         
         var urlComponents = URLComponents()
@@ -43,6 +55,7 @@ extension Endpoint {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod.rawValue
         urlRequest.allHTTPHeaderFields = headers
+        urlRequest.setValue(MIMEType.JSON.rawValue, forHTTPHeaderField: HeaderType.contentType.rawValue)
         if !body.isEmpty {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body)
         }
