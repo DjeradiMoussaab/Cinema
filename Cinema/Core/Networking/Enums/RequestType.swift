@@ -16,3 +16,12 @@ enum RequestType: String {
     case DELETE
     case PATCH
 }
+
+
+enum MIMEType: String {
+    case JSON = "application/json"
+}
+
+enum HeaderType: String {
+    case contentType = "Content-Type"
+}
