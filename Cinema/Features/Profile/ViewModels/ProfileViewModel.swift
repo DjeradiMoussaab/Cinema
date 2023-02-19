@@ -24,20 +24,21 @@ final class ProfileViewModel {
     
     private var apiClient: APIClientProtocol
     
-    weak var profileCoordinatorDelegate: ProfileViewModelProfileCoordinatorDelegate?
-    weak var tabCoordinatorDelegate: ProfileViewModelTabCoordinatorDelegate?
+    var profileCoordinatorDelegate: ProfileViewModelProfileCoordinatorDelegate?
+    var tabCoordinatorDelegate: ProfileViewModelTabCoordinatorDelegate?
 
-    /*typealias Input = (User)
+    typealias Input = (User)
     
     typealias Builder = (ProfileViewModel.Input) -> ProfileViewModel
     
-    var input: ProfileViewModel.Input*/
+    var input: ProfileViewModel.Input
     
     var user: User
         
-    init(apiClient: APIClient = APIClient(), user: User) {
+    init(apiClient: APIClient = APIClient(), input: User) {
         self.apiClient = apiClient
-        self.user = user
+        self.input = input
+        self.user = input
     }
     
     func getProfileRows() -> Driver<[ProfileRowSection]> {

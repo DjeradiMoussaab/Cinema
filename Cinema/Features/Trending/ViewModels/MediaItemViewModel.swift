@@ -29,7 +29,7 @@ final class MediaItemViewModel {
         }
         rating = "\(item.voteAverage)"
         imagePath = item.posterPath
-        mediaType = item.mediaType
+        mediaType = item.mediaType ?? .tv
     }
     
 }

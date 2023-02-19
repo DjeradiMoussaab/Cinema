@@ -17,6 +17,7 @@ enum UserKeys: String {
     case includeAdult = "includeAdult"
     
     case isUserConnected = "isUserConnected"
+    case sessionID = "sessionID"
 }
 
 class Session {
@@ -24,7 +25,17 @@ class Session {
     fileprivate static let defaults = UserDefaults.standard
     
     private var user: User!
-            
+    private var id: String!
+    
+    static func setSessionID(sessionID: String) {
+        defaults.setValue(sessionID, forKey: UserKeys.sessionID.rawValue)
+    }
+    
+    static func getSessionID() -> String {
+        guard let sessionID = defaults.string(forKey: UserKeys.sessionID.rawValue) else { return "" }
+        return sessionID
+    }
+
     static func setUser(_ user: User) {
         defaults.setValue(user.username, forKey: UserKeys.username.rawValue)
         defaults.setValue(user.name, forKey: UserKeys.name.rawValue)

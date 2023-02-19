@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
     private var profileView : ProfileView!
     
     var profileViewModel: ProfileViewModel!
-    //var profileViewModelBuilder: ProfileViewModel.Builder!
+    var profileViewModelBuilder: ProfileViewModel.Builder!
     
     private let disposeBag = DisposeBag()
     
@@ -49,7 +49,6 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        Session.userDeconnected()
         setupBindings()
     }
     

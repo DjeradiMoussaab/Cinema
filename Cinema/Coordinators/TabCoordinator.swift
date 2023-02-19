@@ -47,21 +47,10 @@ class TabCoordinator: BaseCoordinator {
         
         if (Session.isUserConnected()) {
             if let user = Session.getUser() {
-                profileCoordinator.user = user
-                profileCoordinator.start()
-                let profileController = profileCoordinator.navigationController!
-                profileController.tabBarItem = UITabBarItem(title: Tabs.profile.rawValue, image: UIImage.init(systemName: "person"), selectedImage: UIImage.init(systemName: "person.fill"))
-                Add(coordinator: profileCoordinator)
-                controllers.append(profileController)
-                profileCoordinator.profileViewController.profileViewModel.tabCoordinatorDelegate = self
+                self.userDidLogin(user: user)
             }
         } else {
-            loginCoordinator.start()
-            let loginController = loginCoordinator.navigationController!
-            loginController.tabBarItem = UITabBarItem(title: Tabs.login.rawValue, image: UIImage.init(systemName: "person"), selectedImage: UIImage.init(systemName: "person.fill"))
-            Add(coordinator: loginCoordinator)
-            controllers.append(loginController)
-            loginCoordinator.loginViewController.coordinatorDelegate = self
+            self.userDidLogout()
         }
         
         tabBarController.setViewControllers(controllers, animated: true)
