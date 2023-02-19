@@ -108,6 +108,7 @@ final class LoginViewModel {
                     }
                     .map({ sessionResponse -> String in
                         let sessionID = sessionResponse.sessionID ?? ""
+                        Session.setSessionID(sessionID: sessionID)
                         print("&&& sessionID 1 -> \(sessionID)")
                         return sessionID
                     })
