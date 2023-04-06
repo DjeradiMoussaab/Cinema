@@ -10,8 +10,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-
 class ProfileViewController: UIViewController {
+    
     
     private var profileView : ProfileView!
     

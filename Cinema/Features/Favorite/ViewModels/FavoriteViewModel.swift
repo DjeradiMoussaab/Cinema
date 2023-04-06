@@ -14,7 +14,8 @@ final class FavoriteViewModel {
     
     private var apiClient: APIClientProtocol
     
-    let favorites = PublishSubject<[FavoriteItemSection]>()
+    var favorites = BehaviorRelay<[FavoriteItemSection]>(value: [])
+    //let favorites = PublishSubject<[FavoriteItemSection]>()
     
     init(apiClient: APIClient = APIClient()) {
         self.apiClient = apiClient
@@ -46,8 +47,7 @@ final class FavoriteViewModel {
             })
             .subscribe(onNext: { favorites  in
                 print("$$$$$ \(favorites)")
-                self.favorites.onNext(favorites)
-                self.favorites.onCompleted()
+                self.favorites.accept(favorites)
             })
             .disposed(by: disposeBag)
     }
@@ -58,4 +58,52 @@ final class FavoriteViewModel {
                 .downloadImage(backdropPath: item.imagePath))
     }
     
+}
+
+
+
+extension FavoriteViewModel {
+    
+    func remove(item : FavoriteItemViewModel, mediaType : MediaType) {
+        
+        let endPoint: Endpoint = {
+            switch mediaType {
+            case .tv:
+                return FavoriteEndpoint.markTvShowAsFavorite(sesssionID: Session.getSessionID(), item: item, favorite: false)
+            case .movie:
+                return FavoriteEndpoint.markMovieAsFavorite(sesssionID: Session.getSessionID(), item: item, favorite: false)
+            }
+        }()
+        
+        apiClient.perform(endPoint)
+            .map({ response -> SessionResponse in
+                return response
+            })
+            .map({ SessionResponse in
+                print("$$$$$$ \(SessionResponse.success)")
+                print("$$$$$$ \(SessionResponse.statusMessage)")
+            })
+            .subscribe()
+            .disposed(by: DisposeBag())
+        
+        
+        let favorites = favorites.value
+        Observable.of(favorites)
+            .map { sections in
+                sections[0].items.filter { FavoriteItemViewModel in
+                    FavoriteItemViewModel.id != item.id
+                }
+            }
+            .map({ favoriteResult -> [FavoriteItemSection] in
+                return [FavoriteItemSection(
+                    model: 0,
+                    items: favoriteResult
+                )]
+            })
+            .subscribe(onNext: { favorites  in
+                self.favorites.accept(favorites)
+            })
+            .disposed(by: DisposeBag())
+        
+    }
 }

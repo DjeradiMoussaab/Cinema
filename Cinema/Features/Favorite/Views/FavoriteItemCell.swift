@@ -16,9 +16,9 @@ class FavoriteItemCell: UITableViewCell {
         let v = UIImageView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.clipsToBounds = true
-        v.layer.cornerRadius = 36
+        v.layer.cornerRadius = 40
         v.backgroundColor = .darkGray
-        v.contentMode = .scaleAspectFill
+        v.contentMode = .scaleToFill
         return v
     }()
     
@@ -29,6 +29,7 @@ class FavoriteItemCell: UITableViewCell {
         v.textColor = .label
         v.numberOfLines = 2
         v.textAlignment = .left
+        v.baselineAdjustment = .alignCenters
         return v
     }()
     
@@ -37,6 +38,7 @@ class FavoriteItemCell: UITableViewCell {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.font = UIFont.preferredFont(forTextStyle: .caption1)
         v.textColor = .label
+        v.baselineAdjustment = .alignCenters
         return v
     }()
     
@@ -45,6 +47,7 @@ class FavoriteItemCell: UITableViewCell {
         v.translatesAutoresizingMaskIntoConstraints = false
         v.font = UIFont.preferredFont(forTextStyle: .caption1)
         v.textColor = .label
+        v.baselineAdjustment = .alignCenters
         return v
     }()
     
@@ -57,28 +60,35 @@ class FavoriteItemCell: UITableViewCell {
     }
 
     private func setup() {
+        selectionStyle = .none
         backgroundColor = .systemBackground
+        shouldIndentWhileEditing = true
+        contentMode = .scaleToFill
         let stackView = UIStackView(arrangedSubviews: [title, releaseDate, rating])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 4
-        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        addSubview(itemImageView)
-        addSubview(stackView)
+        
+        let stackViewParent = UIStackView(arrangedSubviews: [itemImageView, stackView])
+        stackViewParent.translatesAutoresizingMaskIntoConstraints = false
+        stackViewParent.axis = .horizontal
+        stackViewParent.spacing = 8
+        
+        contentView.addSubview(stackViewParent)
 
         NSLayoutConstraint.activate([
-            itemImageView.widthAnchor.constraint(equalToConstant: 72),
-            itemImageView.heightAnchor.constraint(equalToConstant: 72),
-            itemImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            itemImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            itemImageView.widthAnchor.constraint(equalToConstant: 80),
+            itemImageView.heightAnchor.constraint(equalToConstant: 80),
             
-            title.heightAnchor.constraint(equalToConstant: 20),
-            releaseDate.heightAnchor.constraint(equalToConstant: 12),
-            rating.heightAnchor.constraint(equalToConstant: 12),
+            title.heightAnchor.constraint(equalToConstant: 40),
+            releaseDate.heightAnchor.constraint(equalToConstant: 20),
+            rating.heightAnchor.constraint(equalToConstant: 20),
 
-            stackView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            stackViewParent.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            stackViewParent.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            bottomAnchor.constraint(equalTo: stackViewParent.bottomAnchor, constant: 8),
+            contentView.trailingAnchor.constraint(equalTo: stackViewParent.trailingAnchor, constant: 8),
 
             
         ])

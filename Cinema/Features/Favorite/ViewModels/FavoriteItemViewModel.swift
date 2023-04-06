@@ -8,9 +8,19 @@
 import Foundation
 import RxDataSources
 
-typealias FavoriteItemSection = SectionModel<Int, FavoriteItemViewModel>
+typealias FavoriteItemSection = AnimatableSectionModel<Int, FavoriteItemViewModel>
 
-final class FavoriteItemViewModel {
+final class FavoriteItemViewModel: IdentifiableType, Equatable {
+    static func ==(lhs: FavoriteItemViewModel, rhs: FavoriteItemViewModel) -> Bool {
+      return lhs.id == rhs.id
+    }
+    
+    var id: Int
+    typealias Identity = Int
+    var identity: Identity {
+        return id
+      }
+    
     var title: String
     var rating: String
     var releaseDate: String
@@ -18,6 +28,7 @@ final class FavoriteItemViewModel {
 
     init(With item: MediaItem, mediaType: MediaType) {
         print(item)
+        id = item.id
         if mediaType == .movie {
             title = item.title ?? "No Title Available"
             releaseDate = item.releaseDate ?? "No Information Available"
