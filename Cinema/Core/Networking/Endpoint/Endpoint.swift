@@ -58,8 +58,9 @@ extension Endpoint {
         urlRequest.setValue(MIMEType.JSON.rawValue, forHTTPHeaderField: HeaderType.contentType.rawValue)
         if !body.isEmpty {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body)
-            //print("$$$$$ \(String(decoding: urlRequest.httpBody!, as: UTF8.self))")
+            print("$$$$$ \(String(decoding: urlRequest.httpBody!, as: UTF8.self))")
         }
+        print("$$$$$ \(urlRequest))")
         return urlRequest
     }
 }

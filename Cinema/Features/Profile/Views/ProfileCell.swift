@@ -42,6 +42,7 @@ class ProfileCell: UITableViewCell {
         backgroundColor = .systemBackground
         accessoryType = .disclosureIndicator
 
+        
         let stackView = UIStackView(arrangedSubviews: [icon, title])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal

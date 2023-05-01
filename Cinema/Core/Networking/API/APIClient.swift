@@ -35,7 +35,6 @@ struct APIClient: APIClientProtocol {
                 return try api.makeRequest(endpoint)
             }
             .catch({ Error in
-                print("&&&& \(Error)")
                 return .empty()
             })
             .map { data -> T in

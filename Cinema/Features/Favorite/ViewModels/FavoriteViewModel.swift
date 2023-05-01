@@ -27,7 +27,7 @@ final class FavoriteViewModel {
             case .tv:
                 return FavoriteEndpoint.getFavoriteTvShows(sessionID: Session.getSessionID())
             case .movie:
-                return FavoriteEndpoint.getFavotiteMovies(sessionID: Session.getSessionID())
+                return FavoriteEndpoint.getFavoriteMovies(sessionID: Session.getSessionID())
             }
         }()
         apiClient.perform(endPoint)
@@ -64,28 +64,22 @@ final class FavoriteViewModel {
 
 extension FavoriteViewModel {
     
-    func remove(item : FavoriteItemViewModel, mediaType : MediaType) {
+    func remove(item : FavoriteItemViewModel, mediaType : MediaType, disposeBag: DisposeBag) {
         
         let endPoint: Endpoint = {
             switch mediaType {
             case .tv:
-                return FavoriteEndpoint.markTvShowAsFavorite(sesssionID: Session.getSessionID(), item: item, favorite: false)
+                return FavoriteEndpoint.markTvShowAsFavorite(sessionID: Session.getSessionID(), item: item, favorite: false)
             case .movie:
-                return FavoriteEndpoint.markMovieAsFavorite(sesssionID: Session.getSessionID(), item: item, favorite: false)
+                return FavoriteEndpoint.markMovieAsFavorite(sessionID: Session.getSessionID(), item: item, favorite: false)
             }
         }()
-        
         apiClient.perform(endPoint)
             .map({ response -> SessionResponse in
                 return response
             })
-            .map({ SessionResponse in
-                print("$$$$$$ \(SessionResponse.success)")
-                print("$$$$$$ \(SessionResponse.statusMessage)")
-            })
             .subscribe()
-            .disposed(by: DisposeBag())
-        
+            .disposed(by: disposeBag)
         
         let favorites = favorites.value
         Observable.of(favorites)
@@ -103,7 +97,7 @@ extension FavoriteViewModel {
             .subscribe(onNext: { favorites  in
                 self.favorites.accept(favorites)
             })
-            .disposed(by: DisposeBag())
+            .disposed(by: disposeBag)
         
     }
 }

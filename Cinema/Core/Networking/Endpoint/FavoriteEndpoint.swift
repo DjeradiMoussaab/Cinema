@@ -11,15 +11,15 @@ import Foundation
 
 enum FavoriteEndpoint: Endpoint {
     case getFavoriteTvShows(sessionID: String)
-    case getFavotiteMovies(sessionID: String)
-    case markMovieAsFavorite(sesssionID: String, item: FavoriteItemViewModel, favorite: Bool)
-    case markTvShowAsFavorite(sesssionID: String, item: FavoriteItemViewModel, favorite: Bool)
+    case getFavoriteMovies(sessionID: String)
+    case markMovieAsFavorite(sessionID: String, item: FavoriteItemViewModel, favorite: Bool)
+    case markTvShowAsFavorite(sessionID: String, item: FavoriteItemViewModel, favorite: Bool)
 }
 
 extension FavoriteEndpoint {
     var httpMethod: RequestType {
         switch self {
-        case .getFavoriteTvShows, .getFavotiteMovies:
+        case .getFavoriteTvShows, .getFavoriteMovies:
             return .GET
         case .markMovieAsFavorite, .markTvShowAsFavorite:
             return .POST
@@ -28,7 +28,7 @@ extension FavoriteEndpoint {
     
     var body: [String : Any] {
         switch self {
-        case .getFavoriteTvShows, .getFavotiteMovies:
+        case .getFavoriteTvShows, .getFavoriteMovies:
             return [:]
         case .markMovieAsFavorite(_, let item, let favorite):
             return ["media_type": MediaType.movie.rawValue,
@@ -50,7 +50,7 @@ extension FavoriteEndpoint {
         switch self {
         case .getFavoriteTvShows:
             return APIConstants.favoriteTvShowsPath
-        case .getFavotiteMovies:
+        case .getFavoriteMovies:
             return APIConstants.favoriteMoviesPath
         case .markMovieAsFavorite, .markTvShowAsFavorite:
             return APIConstants.markAsFavoritePath

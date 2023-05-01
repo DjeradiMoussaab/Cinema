@@ -20,13 +20,27 @@ class SearchViewController: UIViewController {
     
     var tableView: UITableView!
     
-    private lazy var dataSource = RxTableViewSectionedReloadDataSource<SearchItemSection>(configureCell: { datasource, tableView, indexPath, item in
+    /*private lazy var dataSource = RxTableViewSectionedReloadDataSource<SearchItemSection>(configureCell: { datasource, tableView, indexPath, item in
         print("idddd : \(SearchItemCell.reuseIdentifier)")
         
         let searchItemCell = tableView.dequeueReusableCell(withIdentifier: SearchItemCell.reuseIdentifier, for: indexPath) as! SearchItemCell
         self.searchViewModel.downloadImage(for: item)
             .bind(to: searchItemCell.searchImageView.rx.image)
             .disposed(by: self.disposeBag)
+        searchItemCell.configure(with: item)
+        return searchItemCell
+    })*/
+    
+    private lazy var dataSource = RxTableViewSectionedReloadDataSource<SearchItemSection>(configureCell: { datasource, tableView, indexPath, item in
+        let searchItemCell = tableView.dequeueReusableCell(withIdentifier: SearchItemCell.reuseIdentifier, for: indexPath) as! SearchItemCell
+
+        // Bind the image to the cell when the download is complete
+        self.searchViewModel.downloadImage(for: item)
+            .observeOn(MainScheduler.instance) // Ensure UI updates are done on main thread
+            .bind(to: searchItemCell.searchImageView.rx.image)
+            .disposed(by: searchItemCell.disposeBag) // Use a dispose bag specific to the cell
+
+        // Configure the cell with other data
         searchItemCell.configure(with: item)
         return searchItemCell
     })

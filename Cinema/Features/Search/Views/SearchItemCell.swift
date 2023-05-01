@@ -7,11 +7,14 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 
 class SearchItemCell: UITableViewCell {
     
     static var reuseIdentifier: String { String(describing: SearchItemCell.self) }
+    let disposeBag = DisposeBag()
+
 
     let searchImageView : UIImageView = {
         let v = UIImageView()

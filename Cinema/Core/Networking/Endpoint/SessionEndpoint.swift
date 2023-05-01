@@ -24,7 +24,7 @@ extension SessionEndpoint {
         }
     }
 
-    var body: [String : String] {
+    var body: [String : Any] {
         switch self {
         case .createSession(let requestToken) :
             return ["request_token": requestToken]

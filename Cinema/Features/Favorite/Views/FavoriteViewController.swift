@@ -116,7 +116,7 @@ extension FavoriteViewController {
         tableView.rx.modelDeleted(FavoriteItemViewModel.self)
             .asDriver()
             .drive(onNext: { [unowned self] favoriteItemViewModel in
-                self.favoriteViewModel.remove(item: favoriteItemViewModel,mediaType: currentMediaType)
+                self.favoriteViewModel.remove(item: favoriteItemViewModel,mediaType: currentMediaType, disposeBag: disposeBag)
                 print("$$$$$$ deleted \(favoriteItemViewModel.title)")
 
             })

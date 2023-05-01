@@ -24,7 +24,7 @@ extension TokenEndpoint {
         }
     }
     
-    var body: [String : String] {
+    var body: [String : Any] {
         switch self {
         case .validateTokenWith(let username,
                                 let password,

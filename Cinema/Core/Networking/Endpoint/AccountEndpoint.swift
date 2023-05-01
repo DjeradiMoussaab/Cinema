@@ -16,7 +16,7 @@ extension AccountEndpoint {
         return .GET
     }
     
-    var body: [String : String] {
+    var body: [String : Any] {
         return [:]
     }
     
