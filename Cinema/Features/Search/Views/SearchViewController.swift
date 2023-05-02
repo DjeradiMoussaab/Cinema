@@ -36,7 +36,7 @@ class SearchViewController: UIViewController {
 
         // Bind the image to the cell when the download is complete
         self.searchViewModel.downloadImage(for: item)
-            .observeOn(MainScheduler.instance) // Ensure UI updates are done on main thread
+            .observe(on: MainScheduler.instance) // Ensure UI updates are done on main thread
             .bind(to: searchItemCell.searchImageView.rx.image)
             .disposed(by: searchItemCell.disposeBag) // Use a dispose bag specific to the cell
 

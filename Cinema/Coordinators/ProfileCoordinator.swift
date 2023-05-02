@@ -19,8 +19,6 @@ class ProfileCoordinator: BaseCoordinator {
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-
-       // self.profileViewController.profileViewModel = self.profileViewController.profileViewModelBuilder((user))
     }
     
     override func start() {
@@ -42,7 +40,9 @@ class ProfileCoordinator: BaseCoordinator {
 
 extension ProfileCoordinator: ProfileViewModelProfileCoordinatorDelegate {
     func accountDetailsSelected() {
-    
+        let profileDetailsCoordinator = ProfileDetailsCoordinator(navigationController: navigationController)
+        profileDetailsCoordinator.user = user
+        profileDetailsCoordinator.start()
     }
     
     func settingsSelected() {
