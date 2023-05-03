@@ -55,15 +55,14 @@ final class SearchViewModel {
                 return String
             })
             .debounce(.milliseconds(200))
-            .skip(1)
+            //.skip(1)
             .asObservable()
             .share(replay: 1, scope: .whileConnected)
         
         return Observable.combineLatest(trendingObservable, searchInputObservable)
             .map { (trendings, searchInput) in
                 trendings.filter { SearchItemViewModel in
-                    return !searchInput.isEmpty &&
-                    SearchItemViewModel.title
+                    return SearchItemViewModel.title
                         .lowercased()
                         .hasPrefix(searchInput.lowercased())
                 }
@@ -73,7 +72,6 @@ final class SearchViewModel {
                     model: 0,
                     items: TrendingResult
                 )]
-                
             })
             .map({ results -> [SearchItemSection] in
                 return results

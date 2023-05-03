@@ -40,7 +40,7 @@ class SearchViewController: UIViewController {
         searchController.searchBar.autocapitalizationType = .none
         searchController.obscuresBackgroundDuringPresentation = false // The default is true.
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false // Make the search bar always visible.
+        navigationItem.hidesSearchBarWhenScrolling = true // Hide the search bar when scrolling.
         
         self.searchViewModel = SearchViewModel(searchInput: (navigationItem.searchController?.searchBar.rx.text.orEmpty.asDriver())!)
         setupViews()

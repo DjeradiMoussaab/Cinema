@@ -10,6 +10,7 @@ target 'Cinema' do
 	pod "RxCocoa"
 	pod 'RxDataSources', '~> 5.0'
 	pod 'RxAlamofire'
+	pod 'IQKeyboardManagerSwift'
 
   target 'CinemaTests' do
     inherit! :search_paths

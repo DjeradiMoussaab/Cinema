@@ -27,7 +27,7 @@ class ProfileDetailsCoordinator: BaseCoordinator {
             ProfileDetailsViewModel(input: $0)
         }
         profileDetailsViewController.profileDetailsViewModel = ProfileDetailsViewModel(input: user)
-        navigationController.pushViewController(profileDetailsViewController, animated: false)
+        navigationController.pushViewController(profileDetailsViewController, animated: true)
     }
     
     func dismiss() {
