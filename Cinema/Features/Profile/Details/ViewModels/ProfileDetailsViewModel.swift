@@ -35,8 +35,18 @@ final class ProfileDetailsViewModel {
             .map({ profileDetailsRows in
                 [ProfileDetailsSection(
                     model: 0,
-                    items: profileDetailsRows
-                )]
+                    items: profileDetailsRows.filter({ ProfileDetailsRows in
+                        ProfileDetailsRows != .language &&
+                        ProfileDetailsRows != .country
+                    })
+                ),
+                 ProfileDetailsSection(
+                     model: 1,
+                     items: profileDetailsRows.filter({ ProfileDetailsRows in
+                         ProfileDetailsRows == .country ||
+                         ProfileDetailsRows == .language
+                     })
+                 )]
             })
             .asDriver(onErrorJustReturn:
                         [ProfileDetailsSection(
@@ -44,6 +54,26 @@ final class ProfileDetailsViewModel {
                             items: []
                         )])
     }
+    
+    /*func getProfileDetailsRows() -> Driver<[ProfileDetailsSection]> {
+        return Observable.just(ProfileDetailsRows.allCases)
+            .map({ items -> [ProfileDetailsSection] in
+                return [ProfileRowSection (
+                    model: 0,
+                    items: items.filter({ profileRows in
+                        profileRows != ProfileDetailsRows.language &&
+                        profileRows != ProfileDetailsRows.country
+                    })
+                ),ProfileRowSection (
+                    model: 1,
+                    items: items.filter({ profileRows in
+                        profileRows == ProfileDetailsRows.language ||
+                        profileRows == ProfileDetailsRows.country
+                    })
+                )]
+            })
+            .asDriver(onErrorJustReturn: [])
+    }*/
     
     func downloadAvatar(for user: User) -> Observable<UIImage> {
         return apiClient
