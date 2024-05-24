@@ -22,6 +22,8 @@ class FavoriteViewController: UIViewController {
     
     private var editBarButton: UIBarButtonItem!
     
+    private var mediaTypeSelector: UISegmentedControl!
+    
     var currentMediaType: MediaType = .movie
 
     
@@ -52,16 +54,35 @@ class FavoriteViewController: UIViewController {
     }
     
     private func setupTableViewLayout() {
+        
+        mediaTypeSelector = UISegmentedControl(items: ["Movies", "TV Shows"])
+        //mediaTypeSelector.frame = CGRect(x: 8, y: 0, width: (self.view.frame.width - 16), height: 50)
+
+        mediaTypeSelector.selectedSegmentIndex = 0
+        mediaTypeSelector.translatesAutoresizingMaskIntoConstraints = false
+        mediaTypeSelector.addTarget(self, action: #selector(UpdateFavoriteList(_:)), for: .valueChanged)
+
+        //navigationItem.titleView = mediaTypeSelector
+        
+        
         view.backgroundColor = .systemGroupedBackground
         self.title = Tabs.favorite.rawValue
-        tableView = UITableView(frame: self.view.frame, style: .plain)
+        tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGroupedBackground
         tableView.rowHeight = 96
         tableView.separatorStyle = .singleLine
+        
+        view.addSubview(mediaTypeSelector)
         view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mediaTypeSelector.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            mediaTypeSelector.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            mediaTypeSelector.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            mediaTypeSelector.heightAnchor.constraint(equalToConstant: 50),
+            
+            tableView.topAnchor.constraint(equalTo: mediaTypeSelector.bottomAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -76,7 +97,7 @@ class FavoriteViewController: UIViewController {
         dataSource = RxTableViewSectionedAnimatedDataSource<FavoriteItemSection>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .none,
                                                            reloadAnimation: .none,
-                                                           deleteAnimation: .left),
+                                                           deleteAnimation: .none),
             configureCell: configureCell,
             canEditRowAtIndexPath: canEditRowAtIndexPath
         )
@@ -98,13 +119,27 @@ class FavoriteViewController: UIViewController {
 }
 
 
+extension FavoriteViewController {
+    @objc private func UpdateFavoriteList(_ sender: UISegmentedControl) {
+        currentMediaType = mediaTypeSelector.selectedSegmentIndex == 0 ? .movie : .tv
+        fetchFavorite(withMediaType: currentMediaType)
+    }
+}
+
+
+
 
 extension FavoriteViewController {
+    
+    func fetchFavorite(withMediaType: MediaType) {
+        
+        favoriteViewModel.fetchFavorite(withMediaType: currentMediaType, disposeBag)
+    }
     
     func bindDataSource() {
         
         /// fetch Trending
-        favoriteViewModel.fetchFavorite(withMediaType: currentMediaType, disposeBag)
+        fetchFavorite(withMediaType: currentMediaType)
         
         /// bind Table View to results based on Search Input after fetching is completed
         favoriteViewModel.favorites

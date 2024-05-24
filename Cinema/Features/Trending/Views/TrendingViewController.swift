@@ -5,83 +5,65 @@
 //  Created by Moussaab Djeradi on 28/12/2022.
 //
 
-import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+
 class TrendingViewController: UIViewController {
-    
+
     private var trendingViewModel = TrendingViewModel()
-    
     private let disposeBag = DisposeBag()
     
     var collectionView: UICollectionView!
+    private lazy var dataSource = RxCollectionViewSectionedReloadDataSource<MediaItemSection>(
+        configureCell: configureCell,
+        configureSupplementaryView: configureSupplementaryView
+    )
+    // MARK: - View Lifecycle
 
-    private lazy var dataSource = RxCollectionViewSectionedReloadDataSource<MediaItemSection>(configureCell:{ dataSource, collectionView, indexPath, item in
-        
-        let mediaItemCell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaItemCell.reuseIdentifier, for: indexPath) as! MediaItemCell
-        self.trendingViewModel.downloadImage(for: item)
-            .bind(to: mediaItemCell.imageView.rx.image)
-            .disposed(by: self.disposeBag)
-        mediaItemCell.configure(with: item)
-        return mediaItemCell
-    })
-    
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupViews()
         populateTrending(withTimePeriod: .daily)
-        
     }
-    
+
+    // MARK: - Private Methods
+
     private func setupViews() {
         view.backgroundColor = .systemBackground
-        self.title = Tabs.trending.rawValue
+        title = Tabs.trending.rawValue
+        setupCollectionView()
+        setupRxDataSource()
+        view.addSubview(collectionView)
+    }
 
-        self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: createLayout())
+    private func setupCollectionView() {
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.register(MediaItemCell.self, forCellWithReuseIdentifier: MediaItemCell.reuseIdentifier)
-        self.collectionView.register(HeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCell.reuseIdentifier)
-        
-        dataSource.configureSupplementaryView = { (dataSource, collectionView, kind, indexPath) in
-            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCell.reuseIdentifier, for: indexPath) as! HeaderCell
-            if indexPath.section == 0 {
-                cell.configure(with: ("TRENDING", "TV SHOWS"))
-            } else {
-                cell.configure(with: ("TRENDING", "MOVIES"))
-            }
-            return cell
-        }
-        
-        view.addSubview(collectionView)
+        collectionView.register(HeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCell.reuseIdentifier)
     }
-    
-    
-    func populateTrending(withTimePeriod period: TimePeriod) {
-        /// fetch Trending
-        trendingViewModel.fetchTrending(withTimePeriod: .daily, disposeBag)
 
-        /// use dailyTrending after fetching is completed
+    private func setupRxDataSource() {
+        dataSource.configureSupplementaryView = configureSupplementaryView
+    }
+
+    private func populateTrending(withTimePeriod period: TimePeriod) {
+        trendingViewModel.fetchTrending(withTimePeriod: .daily, disposeBag)
         trendingViewModel.trending
             .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-
     }
 
-}
 
-// MARK: - COMPOSITIONAL LAYOUT
+    // MARK: - Layout
 
-extension TrendingViewController {
-    
     private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            if (sectionIndex == 0 ) {
-                return self.createHorizontalSectionLayout()
-            } else {
-                return self.createVericalSectionLayout()
-            }
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
+            guard let self = self else { return nil }
+            return sectionIndex == 0 ? self.createHorizontalSectionLayout() : self.createVericalSectionLayout()
         }
         return layout
     }
@@ -136,5 +118,22 @@ extension TrendingViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [sectionHeader]
         return section
+    }
+
+    // MARK: - RxDataSource Configuration
+
+    private func configureCell(dataSource: CollectionViewSectionedDataSource<MediaItemSection>, collectionView: UICollectionView, indexPath: IndexPath, item: MediaItemSection.Item) -> UICollectionViewCell {
+        let mediaItemCell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaItemCell.reuseIdentifier, for: indexPath) as! MediaItemCell
+        trendingViewModel.downloadImage(for: item)
+            .bind(to: mediaItemCell.imageView.rx.image)
+            .disposed(by: disposeBag)
+        mediaItemCell.configure(with: item)
+        return mediaItemCell
+    }
+
+    private func configureSupplementaryView(dataSource: CollectionViewSectionedDataSource<MediaItemSection>, collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView {
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCell.reuseIdentifier, for: indexPath) as! HeaderCell
+        cell.configure(with: indexPath.section == 0 ? ("TRENDING", "TV SHOWS") : ("TRENDING", "MOVIES"))
+        return cell
     }
 }
