@@ -15,7 +15,7 @@ protocol Endpoint {
     var path: String { get }
     var httpMethod: RequestType { get }
     var headers: [String: String] { get }
-    var body: [String: String] { get }
+    var body: [String: Any] { get }
     var parameters: [String: String] { get }
     
     func generateRequestURL() throws -> URLRequest
@@ -28,6 +28,18 @@ extension Endpoint {
     
     var host: String {
         return APIConstants.host
+    }
+    
+    var headers: [String : String] {
+        [:]
+    }
+    
+    var body: [String : Any] {
+        [:]
+    }
+    
+    var parameters: [String : String] {
+        [:]
     }
     
     func generateRequestURL() throws -> URLRequest {
@@ -43,9 +55,12 @@ extension Endpoint {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod.rawValue
         urlRequest.allHTTPHeaderFields = headers
+        urlRequest.setValue(MIMEType.JSON.rawValue, forHTTPHeaderField: HeaderType.contentType.rawValue)
         if !body.isEmpty {
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: body)
+            print("$$$$$ \(String(decoding: urlRequest.httpBody!, as: UTF8.self))")
         }
+        print("$$$$$ \(urlRequest))")
         return urlRequest
     }
 }

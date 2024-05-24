@@ -7,7 +7,25 @@
 		<key>Cinema.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>10</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>BD09AC2129598FD6008CD452</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD09AC3729598FD8008CD452</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD09AC4129598FD9008CD452</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

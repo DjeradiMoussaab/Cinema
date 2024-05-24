@@ -15,8 +15,3 @@ enum APIConstants {
 extension APIConstants {
     static let accessToken = "fb4da7e70c1614ad65b4a521264d9459"
 }
-
-extension APIConstants {
-    static let dailyTrendingPath = "/3/trending/all/day"
-    static let weeklyTrendingPath = "/3/trending/all/week"
-}

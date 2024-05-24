@@ -26,10 +26,10 @@ struct MediaItem: Codable {
     let backdropPath: String
     let id: Int
     let title: String?
-    let originalLanguage: OriginalLanguage
+    let originalLanguage: String?
     let originalTitle: String?
     let overview, posterPath: String
-    let mediaType: MediaType
+    let mediaType: MediaType?
     let genreIDS: [Int]
     let popularity: Double
     let releaseDate: String?
@@ -61,13 +61,8 @@ struct MediaItem: Codable {
     }
 }
 
-enum MediaType: String, Codable {
+// MARK: - MediaType
+enum MediaType: String, Codable, CaseIterable {
     case movie = "movie"
     case tv = "tv"
-}
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case ja = "ja"
-    case ko = "ko"
 }

@@ -6,24 +6,24 @@
 //
 
 import Foundation
+import RxSwift
 
 // MARK: - API Protocol
 
 protocol APIProtocol {
-    func makeRequest(_ endpoint: Endpoint) async throws -> Data
+    func makeRequest(_ endpoint: Endpoint) throws -> Observable<Data>
 }
 
 // MARK: - API
 
 final class API: APIProtocol {
-        
-    func makeRequest(_ endpoint: Endpoint) async throws -> Data {
+    
+    private let cachedImages = NSCache<NSString, NSData>()
+    //wrapper
+    
+    func makeRequest(_ endpoint: Endpoint) throws -> Observable<Data> {
         let requestURL = try endpoint.generateRequestURL()
-        let (data, response) = try await URLSession.shared.data(for: requestURL)
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-            throw ErrorType.invalideResponse
-        }
+        let data = URLSession.shared.rx.data(request: requestURL)
         return data
     }
     
